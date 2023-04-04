@@ -1,15 +1,10 @@
 name: Build , TAG and Push NGINX Image to ECR and deploy to ECS
 on:
-  push:
-    branches:
-      - main
-env:
-    AWS_REGION: ap-south-1  
-    ECR_REPOSITORY: ga-ecs           
-    ECS_SERVICE: nginx-semantic-service                
-    ECS_CLUSTER: github-action-ecs                 
-    ECS_TASK_DEFINITION: .github/workflows/task-definition-nginx.json                                     
-    CONTAINER_NAME: nginx-semantic-container  
+  # push:
+  #    branches:
+  #     - main
+  workflow_dispatch:
+    
 
 jobs:
   production-build:
@@ -37,58 +32,14 @@ jobs:
         echo $NEW_TAG
         echo $PART
 
-    # - name: Check Tag Part
-    #   if: ${{ steps.get-tag.outputs.part == '0' || steps.get-tag.outputs.part == '' }}
-    #   run: |
-        
-    #     echo "Tag part is 0 or null. Skipping remaining steps."
-    #     exit 0
-  
-    - name: Configure AWS credentials
-      if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
-      uses: aws-actions/configure-aws-credentials@v1
+    - name: HTML Preview
+      id: html_preview
+      uses: pavi2410/html-preview-action@v2
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-  
-    - name: Login to Amazon ECR   #To get ECR registry name
-      if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+          html_file: 'index.html'
 
-
-    - name: Build, TAG and push NGINX image to Amazon ECR
-      if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
-      id: build-image
-      env:
-        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: ga-ecs
-        NEW_TAG: ${{ steps.get-tag.outputs.tag }}
+    - name: Get URL
+      env: 
+          URL: steps.html_preview.outputs.url
       run: |
-        docker build -t $REGISTRY/$REPOSITORY:$NEW_TAG .
-        docker push $REGISTRY/$REPOSITORY:$NEW_TAG
-        echo "$REGISTRY/$REPOSITORY:$NEW_TAG"
-        echo "image=$REGISTRY/$REPOSITORY:$NEW_TAG" >> $GITHUB_OUTPUT
-        echo $image
-
-    - name: Updating Amazon ECS task definition
-      if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
-
-    - name: Deploy Amazon ECS task definition
-      if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }} 
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
-        wait-for-service-stability: true
- 
-          
-
+          echo $URL
