@@ -1,13 +1,14 @@
 name: TEST AND DEPLOY
 on:
-  push:
-     branches:
-      - github-actions
+  pull_request:
+    types:
+      - closed
   workflow_dispatch:
     
 
 jobs:
   production-build:
+    if: github.event.pull_request.merged == true
     name: build
     runs-on: ubuntu-latest
     steps:
