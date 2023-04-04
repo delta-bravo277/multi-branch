@@ -1,9 +1,9 @@
 name: TEST AND DEPLOY
 on:
-  push:
-     branches:
-      - github-actions
-  # workflow_dispatch:
+  # push:
+  #    branches:
+  #     - github-actions
+  workflow_dispatch:
     
 
 jobs:
@@ -40,6 +40,6 @@ jobs:
 
     - name: Get URL
       env: 
-          URL: steps.html_preview.outputs.url
+          URL: ${{ steps.html_preview.outputs.url }}
       run: |
           echo $URL
