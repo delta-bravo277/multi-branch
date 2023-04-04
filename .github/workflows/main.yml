@@ -7,7 +7,7 @@ on:
     
 
 jobs:
-  production-build:
+  dev-build:
     if: github.event.pull_request.merged == true
     name: build
     runs-on: ubuntu-latest
