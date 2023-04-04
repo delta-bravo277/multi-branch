@@ -1,0 +1,45 @@
+name: TEST AND DEPLOY
+on:
+  push:
+     branches:
+      - github-actions
+  workflow_dispatch:
+    
+
+jobs:
+  production-build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Assign or Get Tag
+      id: get-tag
+      uses: anothrNick/github-tag-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO_OWNER: delta-bravo277
+        WITH_V: true
+        DEFAULT_BUMP: none
+        DRY_RUN: false
+        
+    - name: Print tag
+      id: determine-tag
+      env:
+        NEW_TAG: ${{ steps.get-tag.outputs.tag }}
+        PART: ${{ steps.get-tag.outputs.part }}
+      run: |
+        echo $NEW_TAG
+        echo $PART
+
+    - name: HTML Preview
+      id: html_preview
+      uses: pavi2410/html-preview-action@v2
+      with:
+          html_file: 'index.html'
+
+    - name: Get URL
+      env: 
+          URL: ${{ steps.html_preview.outputs.url }}
+      run: |
+          echo $URL
