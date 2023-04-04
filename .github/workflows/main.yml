@@ -23,6 +23,7 @@ jobs:
         WITH_V: true
         DEFAULT_BUMP: none
         DRY_RUN: false
+        DEFAULT_BRANCH: github-actions
         
     - name: Print tag
       id: determine-tag
