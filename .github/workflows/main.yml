@@ -1,9 +1,9 @@
 name: TEST AND DEPLOY
 on:
-  # push:
-  #    branches:
-  #     - main
-  workflow_dispatch:
+  push:
+     branches:
+      - github-actions
+  # workflow_dispatch:
     
 
 jobs:
