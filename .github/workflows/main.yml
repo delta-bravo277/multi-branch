@@ -14,24 +14,24 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Assign or Get Tag
-      id: get-tag
-      uses: anothrNick/github-tag-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REPO_OWNER: delta-bravo277
-        WITH_V: true
-        DEFAULT_BUMP: none
-        DRY_RUN: false
+    # - name: Assign or Get Tag
+    #   id: get-tag
+    #   uses: anothrNick/github-tag-action@master
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     REPO_OWNER: delta-bravo277
+    #     WITH_V: true
+    #     DEFAULT_BUMP: none
+    #     DRY_RUN: false
         
-    - name: Print tag
-      id: determine-tag
-      env:
-        NEW_TAG: ${{ steps.get-tag.outputs.tag }}
-        PART: ${{ steps.get-tag.outputs.part }}
-      run: |
-        echo $NEW_TAG
-        echo $PART
+    # - name: Print tag
+    #   id: determine-tag
+    #   env:
+    #     NEW_TAG: ${{ steps.get-tag.outputs.tag }}
+    #     PART: ${{ steps.get-tag.outputs.part }}
+    #   run: |
+    #     echo $NEW_TAG
+    #     echo $PART
 
     - name: HTML Preview
       id: html_preview
