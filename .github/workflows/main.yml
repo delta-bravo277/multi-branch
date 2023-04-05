@@ -1,11 +1,13 @@
 name: TEST AND DEPLOY
 on:
-  pull_request:
+ pull_request:
     types:
       - closed
-  workflow_dispatch:
-    
+    branches:
+      - github-actions
 
+ workflow_dispatch:
+   
 jobs:
   dev-build:
     if: github.event.pull_request.merged == true
@@ -13,17 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: '0'
 
     - name: Assign or Get Tag
       id: get-tag
       uses: anothrNick/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REPO_OWNER: delta-bravo277
         WITH_V: true
         DEFAULT_BUMP: none
-        DRY_RUN: false
-        DEFAULT_BRANCH: github-actions
         
     - name: Print tag
       id: determine-tag
