@@ -10,7 +10,7 @@ on:
 jobs:
   dev-build:
     if: github.event.pull_request.merged == true
-    name: Code checkout
+    name: DEV Build 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
