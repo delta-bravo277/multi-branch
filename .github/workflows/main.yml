@@ -3,6 +3,8 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - github-actions
   workflow_dispatch:
     
 
@@ -13,16 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: '0'
 
     - name: Assign or Get Tag
       id: get-tag
       uses: anothrNick/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REPO_OWNER: delta-bravo277
         WITH_V: true
         DEFAULT_BUMP: none
-        DRY_RUN: false
         
     - name: Print tag
       id: determine-tag
