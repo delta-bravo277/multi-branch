@@ -1,13 +1,12 @@
 name: TEST AND DEPLOY
 on:
-  pull_request:
+ pull_request:
     types:
       - closed
     branches:
       - github-actions
-  workflow_dispatch:
-    
-
+ workflow_dispatch:
+   
 jobs:
   dev-build:
     if: github.event.pull_request.merged == true
