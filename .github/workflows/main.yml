@@ -35,7 +35,7 @@ jobs:
         echo $NEW_TAG
         echo $PART
 
-    - name: HTML Preview
+    - name: Deployment Preview
       id: html_preview
       uses: pavi2410/html-preview-action@v2
       with:
