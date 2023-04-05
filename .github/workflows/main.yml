@@ -5,7 +5,7 @@ on:
       - closed
     branches:
       - github-actions
- workflow_dispatch:
+#  workflow_dispatch:
    
 jobs:
   dev-build:
