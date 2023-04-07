@@ -21,31 +21,31 @@ jobs:
         ref: ${{ github.sha }}
         fetch-depth: '0'
 
-    - name: Assign or Get Tag
-      id: get-tag
-      uses: delta-bravo277/github-action-tag.git@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true
-        DEFAULT_BUMP: none
+    # - name: Assign or Get Tag
+    #   id: get-tag
+    #   uses: delta-bravo277/github-action-tag.git@main
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     WITH_V: true
+    #     DEFAULT_BUMP: none
         
-    - name: Print GIT tag
-      id: determine-tag
-      env:
-        NEW_TAG: ${{ steps.get-tag.outputs.tag }}
-        PART: ${{ steps.get-tag.outputs.part }}
-      run: |
-        echo $NEW_TAG
-        echo $PART
+    # - name: Print GIT tag
+    #   id: determine-tag
+    #   env:
+    #     NEW_TAG: ${{ steps.get-tag.outputs.tag }}
+    #     PART: ${{ steps.get-tag.outputs.part }}
+    #   run: |
+    #     echo $NEW_TAG
+    #     echo $PART
 
-    - name: Deployment Preview
-      id: html_preview
-      uses: pavi2410/html-preview-action@v2
-      with:
-          html_file: 'index.html'
+    # - name: Deployment Preview
+    #   id: html_preview
+    #   uses: pavi2410/html-preview-action@v2
+    #   with:
+    #       html_file: 'index.html'
 
-    - name: Get URL
-      env: 
-          URL: ${{ steps.html_preview.outputs.url }}
-      run: |
-          echo $URL
+    # - name: Get URL
+    #   env: 
+    #       URL: ${{ steps.html_preview.outputs.url }}
+    #   run: |
+    #       echo $URL
