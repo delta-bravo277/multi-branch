@@ -23,7 +23,7 @@ jobs:
 
     - name: Assign or Get Tag
       id: get-tag
-      uses: delta-bravo277/github-action-tag.git@main
+      uses: delta-bravo277/github-action-tag@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
