@@ -1,10 +1,10 @@
 name: TEST AND DEPLOY
 on:
-#  pull_request:
-#     types:
-#       - closed
-#     branches:
-#       - github-actions
+ pull_request:
+    types:
+      - closed
+    branches:
+      - main
  workflow_dispatch:
    
 jobs:
