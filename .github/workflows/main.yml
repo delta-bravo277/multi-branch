@@ -1,4 +1,4 @@
-name: TEST AND DEPLOY
+name: TEST AND DEPLOY -> Custom Action
 on:
    push:
     branches:
