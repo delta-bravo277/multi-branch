@@ -1,4 +1,4 @@
-name: TEST AND DEPLOY -> Custom Action
+name: TEST AND DEPLOY -> Custom Github Action 
 on:
    push:
     branches:
