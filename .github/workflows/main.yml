@@ -44,6 +44,7 @@ jobs:
       run: |
         echo $NEW_TAG
         echo $PART
+        echo $INPUT
 
     - name: Deployment Preview
       id: html_preview
