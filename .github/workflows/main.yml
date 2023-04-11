@@ -1,14 +1,19 @@
 name: TEST AND DEPLOY -> Custom Github Action 
 on:
-   push:
-    branches:
-      [ main ]
+  #  push:
+  #   branches:
+  #     [ main ]
 #  pull_request:
 #     types:
 #       - closed
 #     branches:
 #       - main
-#  workflow_dispatch:
+ workflow_dispatch:
+     inputs:
+      tag:
+        description: 'Please enter version number'
+        required: true
+
    
 jobs:
   build:
@@ -35,6 +40,7 @@ jobs:
       env:
         NEW_TAG: ${{ steps.get-tag.outputs.tag }}
         PART: ${{ steps.get-tag.outputs.part }}
+        INPUT: ${{ github.event.inputs.tag }}
       run: |
         echo $NEW_TAG
         echo $PART
