@@ -1,14 +1,14 @@
-name: TEST AND DEPLOY -> Custom Github Action 
+name: PROD -> Custom Github Action 
 on:
   #  push:
   #   branches:
   #     [ main ]
- pull_request:
-    types:
-      - closed
-    branches:
-      - main
-#  workflow_dispatch:
+#  pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - main
+ workflow_dispatch:
 #      inputs:
 #       tag:
 #         description: 'Please enter version number'
